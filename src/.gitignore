@@ -17,7 +17,3 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-
-# 追加
-/public/vendor
-/lang/vendor
