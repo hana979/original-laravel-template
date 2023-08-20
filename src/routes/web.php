@@ -33,6 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/news', [App\Http\Controllers\News\NewsController::class, 'index'])->name('news');
+    Route::get('/news/create', [App\Http\Controllers\News\NewsController::class, 'create'])->name('news-create');
+    Route::get('/news/{newsId}', [App\Http\Controllers\News\NewsController::class, 'edit'])->where('newsId', '^[1-9]\d*$')->name('news-edit');
 });
 
 require __DIR__.'/auth.php';
