@@ -1,0 +1,64 @@
+version: "3.8"
+
+services:
+  front:
+    build:
+      context: ./docker/front
+      dockerfile: Dockerfile
+    ports:
+      - ${FRONT_PORT:-3000}:3000
+    volumes:
+      - ./front:/app:cached
+    stdin_open: true
+    tty: true
+    depends_on:
+      - nginx
+  nginx:
+    container_name: nginx
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    ports:
+      - ${WEB_PORT:-80}:80
+    volumes:
+      - ./api:/app:cached
+    tty: true
+    depends_on:
+      - api
+  api:
+    build:
+      context: ./docker/api
+      dockerfile: Dockerfile
+    volumes:
+      - ./api:/app:cached
+    tty: true
+    environment:
+      - APP_ENV=development
+    depends_on:
+      - db
+  db:
+    build:
+      context: ./docker/db
+      dockerfile: Dockerfile
+    ports:
+      - ${DB_PORT:-3306}:3306
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-mydb}
+      MYSQL_USER: ${DB_USER:-spa_app}
+      MYSQL_PASSWORD: ${DB_PASS:-userpass}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS:-rootpass}
+      TZ: "Asia/Tokyo"
+    volumes:
+      - db-volume:/var/lib/mysql:cached
+  org-hnd-admin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOSTS=${DB_NAME:-mydb}
+      - PMA_USER=${DB_USER:-spa_app}
+      - PMA_PASSWORD=${DB_PASS:-password}
+    ports:
+      - ${PMA_PORT:-3307}:80
+
+volumes:
+  db-volume:

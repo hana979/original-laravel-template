@@ -1,0 +1,16 @@
+{
+    "singleQuote": true,
+    "tabWidth": 4,
+    "printWidth": 120,
+    "useTabs": false,
+    "plugins": ["@prettier/plugin-php", "@shufo/prettier-plugin-blade"],
+    "overrides": [
+        {
+            "files": ["*.blade.php"],
+            "options": {
+                "parser": "blade",
+                "tabWidth": 4
+            }
+        }
+    ]
+}
