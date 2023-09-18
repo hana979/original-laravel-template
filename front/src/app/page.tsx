@@ -1,22 +1,22 @@
 'use client';
+import { Button, Flex, Heading, VStack } from '@chakra-ui/react';
+import NextLink from 'next/link';
 
-import { Button, Flex, Heading, Input, useColorMode, useColorModeValue } from '@chakra-ui/react';
+import { useLoginCheck } from '@/lib/hooks/useLoginCheck';
 
 export default function Home() {
-  const { toggleColorMode } = useColorMode();
-  const formBackGround = useColorModeValue('gray.100', 'gray.700');
+  useLoginCheck();
 
   return (
-    <Flex height="100vh" alignItems="center" justifyContent="center">
-      <Flex direction="column" background={formBackGround} p={12} rounded={6}>
-        <Heading mb={6}>Log in</Heading>
-        <Input placeholder="sample@sample.com" variant="filled" mb={3} type="email" />
-        <Input placeholder="********" variant="filled" mb={6} type="password" />
-        <Button mb={6} colorScheme="teal">
-          Log in
-        </Button>
-        <Button onClick={toggleColorMode}>Toggle Color Mode</Button>
-      </Flex>
+    <Flex height="100vh" justifyContent="center" alignItems="center">
+      <VStack spacing="5">
+        <Heading>Home</Heading>
+        <VStack alignItems="left">
+          <Button as={NextLink} href="/mypage" bg="white" width="100%">
+            マイページへ
+          </Button>
+        </VStack>
+      </VStack>
     </Flex>
   );
 }
