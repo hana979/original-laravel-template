@@ -24,7 +24,7 @@ export const getCookie = async (): Promise<void> => {
 
 export const login = async (loginData: LoginData): Promise<boolean> => {
   try {
-    const loginRes = await api.post('/api/login', loginData);
+    const loginRes = await api.post('/api/v1/login', loginData);
     console.log('loginRes: ', loginRes);
     if (loginRes.status === okStatus) {
       console.log('login success');
@@ -39,7 +39,7 @@ export const login = async (loginData: LoginData): Promise<boolean> => {
 
 export const logout = async (): Promise<boolean> => {
   try {
-    const logoutRes = await api.post('/api/logout');
+    const logoutRes = await api.post('/api/v1/logout');
     console.log('logoutRes: ', logoutRes);
     if (logoutRes.status === okStatus) {
       console.log('logout complete');
@@ -53,7 +53,7 @@ export const logout = async (): Promise<boolean> => {
 
 export const loginCheck = async (): Promise<number> => {
   try {
-    const loginCheckRes = await api.post('/api/auth');
+    const loginCheckRes = await api.post('/api/v1/auth');
     console.log('loginCheckRes: ', loginCheckRes);
     return loginCheckRes.status;
   } catch (err) {
