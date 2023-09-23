@@ -16,6 +16,8 @@ use App\Http\Controllers\Api\AuthController;
 */
 
 Route::middleware('auth:sanctum')->group(function () {
-    // 自身のユーザ情報を取得する。
-    Route::get('/me', [AuthController::class, 'me']);
+    Route::prefix('v1')->group(function () {
+        // 自身のユーザ情報を取得する。
+        Route::get('/me', [AuthController::class, 'me']);
+    });
 });

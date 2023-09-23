@@ -10,21 +10,18 @@ type LoginData = {
 };
 
 const api = axios.create({
-  baseURL: 'http://localhost:9000',
+  baseURL: process.env.API_END_POINT,
   withCredentials: true,
 });
 
-export const getCookie = async (): Promise<void> => {
-  try {
-    await api.get('/sanctum/csrf-cookie');
-  } catch (err) {
-    console.error('Error getting CSRF cookie:', err);
-  }
-};
+export const getCookieEndpoint = () => '/sanctum/csrf-cookie';
+export const loginEndpoint = () => `/api/${process.env.API_VERSION}/login`;
+export const logoutEndpoint = () => `/api/${process.env.API_VERSION}/logout`;
+export const loginUserEndpoint = () => `/api/${process.env.API_VERSION}/me`;
 
 export const login = async (loginData: LoginData): Promise<boolean> => {
   try {
-    const loginRes = await api.post('/api/v1/login', loginData);
+    const loginRes = await api.post(`/api/${process.env.API_VERSION}/login`, loginData);
     console.log('loginRes: ', loginRes);
     if (loginRes.status === okStatus) {
       console.log('login success');
@@ -51,13 +48,13 @@ export const logout = async (): Promise<boolean> => {
   return false;
 };
 
-export const loginCheck = async (): Promise<number> => {
+export const loginUser = async (): Promise<number> => {
   try {
-    const loginCheckRes = await api.post('/api/v1/auth');
-    console.log('loginCheckRes: ', loginCheckRes);
-    return loginCheckRes.status;
+    const loginUserRes = await api.post('/api/v1/me');
+    console.log('loginUserRes: ', loginUserRes);
+    return loginUserRes.status;
   } catch (err) {
-    console.error('Error during login check:', err);
+    console.error('Error during login me:', err);
     return errorStatus; // 500 または他の適切なエラーコードを返します。
   }
 };

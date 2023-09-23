@@ -2,11 +2,11 @@
 import { Button, Flex, Heading, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 
-import { logout } from '@/lib/apis/auth';
-import { useLoginCheck } from '@/lib/hooks/useLoginCheck';
+import { logout } from '@/lib/apis/endpoints';
+import { useLoginUser } from '@/lib/hooks/useLoginUser';
 
 export default function MyPage() {
-  useLoginCheck();
+  useLoginUser();
   const router = useRouter();
 
   const handleLogout = async (e) => {

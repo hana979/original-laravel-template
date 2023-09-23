@@ -15,7 +15,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { login, getCookie } from '@/lib/apis/auth';
+import { login, getCookie } from '@/lib/apis/endpoints';
 
 type formInputs = {
   email: string;
