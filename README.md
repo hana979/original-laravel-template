@@ -1,12 +1,8 @@
-<div><img src="./docs/images/main-image.png" /></div>
-
-<div align="center">Laravel development my template</div>
-
----
+# Laravel development my template
 
 - [Setup](#setup)
 
-# Setup
+## Setup
 
 1. appコンテナに入る。
 ```
