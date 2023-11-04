@@ -1,7 +1,13 @@
-# original-laravel-template
-Laravel開発のテンプレート
+<div><img src="./docs/images/main-image.png" /></div>
 
-## 初期設定
+<div align="center">Laravel development my template</div>
+
+---
+
+- [Setup](#setup)
+
+# Setup
+
 1. appコンテナに入る。
 ```
 cd src
@@ -28,11 +34,3 @@ php artisan migrate:refresh --seed
 ```
 chmod -R 777 ./storage/
 ```
-
-## Vueのインストール
-```
-npm i
-
-npm i @vitejs/plugin-vue
-```
-
