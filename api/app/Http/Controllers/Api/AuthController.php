@@ -7,65 +7,87 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use UnexpectedValueException;
 
 class AuthController extends Controller
 {
-    // ユーザー登録 TODO: Fortifyを使う
-    public function register(Request $request)
-    {
-        try {
-            $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-            $user->save();
-        } catch (Exception $ex) {
-            return response()->json(
-                [
-                    'message' => '登録失敗',
-                    'errors' => $ex->getMessage(),
-                ],
-                500
-            );
-        }
-
-        $json = [
-            'data' => $user,
-        ];
-
-        return response()->json($json, Response::HTTP_OK);
-    }
-
     // ログイン
     public function login(Request $request)
     {
         logger('$request');
         logger($request);
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $user = User::whereEmail($request->email)->first();
-            $user->tokens()->delete();
-            $token = $user->createToken("login:user{$user->id}")->plainTextToken;
-            //ログインが成功した場合はトークンを返す
-            return response()->json(['token' => $token], Response::HTTP_OK);
+
+        try {
+            $validated = $request->validate([
+                'email' => 'required',
+                'password' => 'required',
+            ]);
+        } catch (ValidationException $ex) {
+            return response()->json(
+                [
+                    'message' => 'Validation error',
+                    'errors' => $ex->errors(),
+                ],
+                422
+            );
         }
-        return response()->json('Can Not Login.', Response::HTTP_INTERNAL_SERVER_ERROR);
+
+        $user = null;
+        try {
+            $user = $this->loginByCreadential($validated);
+        } catch (UnexpectedValueException $ex) {
+            logger()->error($ex->getMessage());
+            return response()->json(['message' => $ex->getMessage()], 400);
+        } catch (HttpException $ex) {
+            logger()->error($ex->getMessage());
+            $code = $ex->getStatusCode();
+            if ($code === 400 || $code === 401) {
+                return response()->json(['message' => $ex->getMessage()], $code);
+            } else {
+                throw $ex;
+            }
+        }
+
+        $expires_at = Carbon::now()->addMinutes(config('sanctum.expiration'));
+        $token = $user->createToken('org-hnd-api', ['*'], $expires_at);
+
+        return response()->json([
+            'access_token' => $token->plainTextToken,
+            'expires_at' => $token->accessToken->expires_at->format('Y-m-d H:i:s'),
+            'id' => $user->id,
+        ]);
+    }
+
+    // Email・Passwordでログインする
+    protected function loginByCreadential($validated)
+    {
+        $user = User::whereEmail($validated['email'])->first();
+        if (!$user || !Hash::check($validated['password'], $user->password)) {
+            abort(401, 'Unauthenticated');
+        }
+
+        return $user;
     }
 
     // ログアウト
     public function logout()
     {
-        auth()
-            ->user()
-            ->tokens()
-            ->delete();
+        $user = auth()->user();
+        if (!$user) {
+            return response()->json(['message' => 'Unauthenticated'], 401);
+        }
+
+        $user->tokens()->delete();
+
         return response()->json([
             'message' => 'Successfully logged out',
         ]);
     }
-
-    // TODO: ログインチェック用のAPIを作る
 
     // 自身のユーザ情報を取得する。
     public function me()

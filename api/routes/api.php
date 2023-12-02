@@ -15,8 +15,12 @@ use App\Http\Controllers\Api\AuthController;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::prefix('v1')->group(function () {
+Route::prefix('v1')->group(function () {
+    // ログインしてアクセストークンを取得する。
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::middleware('auth:sanctum')->group(function () {
+        // ログアウトする。
+        Route::post('/logout', [AuthController::class, 'logout']);
         // 自身のユーザ情報を取得する。
         Route::get('/me', [AuthController::class, 'me']);
     });
