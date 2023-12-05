@@ -56,6 +56,7 @@ class Handler extends ExceptionHandler
             if (config('app.debug')) {
                 $result['error'] = $e->getMessage();
             }
+
             return response()->json($result, 500);
         }
     }

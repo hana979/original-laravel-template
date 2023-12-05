@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\RegisteredUserController;
+use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
-use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     Route::post('/register', [RegisteredUserController::class, 'store']);
