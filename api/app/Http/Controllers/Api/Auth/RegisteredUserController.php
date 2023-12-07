@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+declare(strict_types=1);
 
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers\Api\Auth;
+
 use App\Actions\Fortify\CreateNewUser;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-class RegisteredUserController extends Controller
+final class RegisteredUserController extends Controller
 {
     public function store(Request $request)
     {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,11 +18,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     // ログインしてアクセストークンを取得する。
-    Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/login', [LoginController::class, 'login'])->name('login');
     Route::middleware('auth:sanctum')->group(function () {
         // ログアウトする。
-        Route::post('/logout', [AuthController::class, 'logout']);
+        Route::post('/logout', [LoginController::class, 'logout']);
         // 自身のユーザ情報を取得する。
-        Route::get('/me', [AuthController::class, 'me']);
+        Route::get('/me', [LoginController::class, 'me']);
     });
 });
