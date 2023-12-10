@@ -15,22 +15,19 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { login, getCookie } from '@/lib/apis/endpoints';
+import { loginAction } from '@/lib/apis/login/actions';
 
-type formInputs = {
-  email: string;
-  password: string;
-};
+import { LoginReqestType } from '../types/login';
 
 export default function Login() {
-  const { handleSubmit, register } = useForm<formInputs>();
+  const { handleSubmit, register } = useForm<LoginReqestType>();
   const [show, setShow] = useState<boolean>(false);
   const router = useRouter();
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await getCookie();
-      const isSuccess = await login(data);
+      const isSuccess = await loginAction(data);
+      console.log('isSuccess: ', isSuccess);
       if (isSuccess) {
         router.push('/');
       } else {
