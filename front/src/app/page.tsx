@@ -2,10 +2,10 @@
 import { Button, Flex, Heading, VStack } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-import { useLoginUser } from '@/lib/hooks/useLoginUser';
+// import { useLoginUser } from '@/lib/hooks/useLoginUser';
 
 export default function Home() {
-  useLoginUser();
+  // useLoginUser();
 
   return (
     <Flex height="100vh" justifyContent="center" alignItems="center">

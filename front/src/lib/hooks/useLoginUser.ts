@@ -2,7 +2,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 
-import { loginUserEndpoint } from '../apis/endpoints';
+import { loginUserEndpoint } from '../apis/proxyConfig';
 import { fetcher } from '../config';
 
 export const useLoginUser = () => {

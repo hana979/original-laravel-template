@@ -1,26 +1,26 @@
 'use client';
 import { Button, Flex, Heading, VStack } from '@chakra-ui/react';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 
-import { logout } from '@/lib/apis/endpoints';
-import { useLoginUser } from '@/lib/hooks/useLoginUser';
+// import { logout } from '@/lib/apis/proxyConfig';
+// import { useLoginUser } from '@/lib/hooks/useLoginUser';
 
 export default function MyPage() {
-  useLoginUser();
-  const router = useRouter();
+  // useLoginUser();
+  // const router = useRouter();
 
   const handleLogout = async (e) => {
     e.preventDefault();
-    try {
-      const isSuccess = await logout();
-      if (isSuccess) {
-        router.push('/login');
-      } else {
-        console.error('ログアウトに失敗しました');
-      }
-    } catch (error) {
-      console.error('ログアウト処理中にエラーが発生しました', error);
-    }
+    // try {
+    //   const isSuccess = await logout();
+    //   if (isSuccess) {
+    //     router.push('/login');
+    //   } else {
+    //     console.error('ログアウトに失敗しました');
+    //   }
+    // } catch (error) {
+    //   console.error('ログアウト処理中にエラーが発生しました', error);
+    // }
   };
 
   return (
