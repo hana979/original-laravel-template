@@ -6,13 +6,16 @@ export const FORBIDDEN_ERROR_STATUS: number = 403;
 export const NOT_FOUND_ERROR_STATUS: number = 404;
 export const VALIDATION_ERROR_STATUS: number = 422;
 export const SERVER_ERROR_STATUS: number = 500;
+export const OK_STATUS_MAP: number[] = [OK_STATUS, CREATED_STATUS];
 
 export const loginProxyEndpoint = () => {
   console.log('process.env.PROXY_API_END_POINT: ', process.env.NEXT_PUBLIC_API_PROXY);
   return `${process.env.NEXT_PUBLIC_API_PROXY}/login`;
 };
+export const getCookiesProxyEndpoint = () => `${process.env.NEXT_PUBLIC_API_PROXY}/get-cookies`;
 export const logoutProxyEndpoint = () => `${process.env.NEXT_PUBLIC_API_PROXY}/logout`;
 export const loginProxyUserEndpoint = () => `${process.env.NEXT_PUBLIC_API_PROXY}/user`;
+export const homeProxyEndpoint = () => `${process.env.NEXT_PUBLIC_API_PROXY}/home`;
 
 // export const logout = async (): Promise<boolean> => {
 //   try {

@@ -17,7 +17,10 @@ export const httpStatus = {
   SERVER_ERROR_STATUS,
 };
 
+// Auth
 export const loginEndpoint = () => `${process.env.API_END_POINT}/${process.env.API_VERSION}/login`;
 export const logoutEndpoint = () => `${process.env.API_END_POINT}/${process.env.API_VERSION}/logout`;
 export const loginUserEndpoint = () => `${process.env.API_END_POINT}/${process.env.API_VERSION}/me`;
 export const registerEndpoint = () => `${process.env.API_END_POINT}/${process.env.API_VERSION}/register`;
+// Home
+export const homeEndpoint = () => `${process.env.API_END_POINT}/${process.env.API_VERSION}/home`;

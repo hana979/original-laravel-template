@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 
 import { loginUserEndpoint, httpStatus } from '@/app/api/config';
-import { UserInfoResponceType } from '@/app/types/user';
+import { UserInfoResponceType } from '@/types/user';
 
 export async function GET() {
   let data = null;
@@ -20,7 +20,6 @@ export async function GET() {
         return res.json();
       })
       .then((resData: UserInfoResponceType) => {
-        console.log('resData: ', resData);
         data = resData;
       });
   } catch (err) {

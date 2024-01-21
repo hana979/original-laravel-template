@@ -1,22 +1,10 @@
-'use client';
-import { Button, Flex, Heading, VStack } from '@chakra-ui/react';
-import NextLink from 'next/link';
+import { getServerSession } from 'next-auth';
 
-// import { useLoginUser } from '@/lib/hooks/useLoginUser';
+import HomePage from '@/components/HomePage';
+import { authOptions } from '@/lib/auth';
 
-export default function Home() {
-  // useLoginUser();
-
-  return (
-    <Flex height="100vh" justifyContent="center" alignItems="center">
-      <VStack spacing="5">
-        <Heading>Home</Heading>
-        <VStack alignItems="left">
-          <Button as={NextLink} href="/mypage" bg="white" width="100%">
-            マイページへ
-          </Button>
-        </VStack>
-      </VStack>
-    </Flex>
-  );
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+  console.log(session);
+  return <HomePage />;
 }

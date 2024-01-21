@@ -3,7 +3,7 @@
 import { cookies } from 'next/headers';
 
 import { registerEndpoint, httpStatus } from '@/app/api/config';
-import { UserRegisterRequestType, UserRegisterResponceType } from '@/app/types/user';
+import { UserRegisterRequestType, UserRegisterResponceType } from '@/types/user';
 
 export async function POST(req: UserRegisterRequestType) {
   let data = null;

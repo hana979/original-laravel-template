@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\Home\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,5 +25,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/logout', [LoginController::class, 'logout']);
         // 自身のユーザ情報を取得する。
         Route::get('/me', [LoginController::class, 'me']);
+        // HOME画面
+        Route::get('/home', [HomeController::class, 'index']);
     });
 });

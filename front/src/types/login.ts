@@ -4,7 +4,7 @@ export type LoginReqestType = {
 };
 
 export type LoginResponceType = {
-  access_token: string;
-  expires_at: string;
+  accessToken: string;
+  expiresAt: string;
   id: number;
 };
