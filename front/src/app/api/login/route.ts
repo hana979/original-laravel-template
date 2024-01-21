@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { loginEndpoint, httpStatus } from '@/app/api/config';
 import { LoginReqestType, LoginResponceType } from '@/types/login';
 
-
 export async function POST(request: NextRequest) {
   let data: LoginResponceType | null = null;
   try {

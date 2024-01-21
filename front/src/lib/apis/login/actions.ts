@@ -11,9 +11,9 @@ export const loginAction = async (loginData: LoginReqestType): Promise<boolean> 
     status = OK_STATUS;
   } catch (error) {
     if ((error as Error).message.includes('CredentialsSignin')) {
-      return false
+      return false;
     }
-    throw error
+    throw error;
   }
 
   return status === OK_STATUS;

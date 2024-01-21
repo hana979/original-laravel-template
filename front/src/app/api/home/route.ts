@@ -11,9 +11,9 @@ export async function GET() {
   try {
     const fetchData = await fetch(homeEndpoint(), {
       headers: {
-        Authorization: `Bearer ${token?.value}`
+        Authorization: `Bearer ${token?.value}`,
       },
-    })
+    });
     data = await fetchData.json();
 
     if (!fetchData.ok) {
@@ -23,6 +23,6 @@ export async function GET() {
     return NextResponse.json(data, { status: httpStatus.OK_STATUS });
   } catch (err) {
     console.error('Error during home attempt:', err);
-    return NextResponse.json({ message: 'Internal Server Error' }, { status: httpStatus.SERVER_ERROR_STATUS});
+    return NextResponse.json({ message: 'Internal Server Error' }, { status: httpStatus.SERVER_ERROR_STATUS });
   }
 }
